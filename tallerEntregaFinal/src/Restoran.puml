@@ -1,0 +1,131 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+left to right direction
+entity Restorant{
+
+    String direccion
+    manejarMesas
+    manejarTrabajadores
+    manejarInventario
+    consultarDisponibilidad()
+    procesarOrdenes()
+    Get's ()
+    Set's ()
+
+}
+
+entity Trabajadores{
+    String Nombre
+    int Edad
+    String tipoDeContrato
+    fechaDeContratacion: Date
+    fechaDeTermino: Date
+    Trabajadores[] listaTrabajadores
+
+
+}
+class ListaTrabajadores{
+    listaTrabajadores[] listaTrabajadores
+    int cantidadActual
+    agregarTrabajador()
+    eliminarTrabajador()
+    RenovarContrato()
+    FinalizarContrato()
+    OtorgarIndefinido()
+    Get's()
+    Set's()
+
+
+}
+class Mesas{
+    int numeroMesa
+    int posicionMesa
+    disponibilidadMesa() boolean
+    registrarCliente()
+
+}
+class ListaMesas{
+    ListaMesas[] listaMesas
+    int cantidadActual
+    int cantidadMaxima
+    liberarMesa()
+    Get's
+    Set's
+}
+
+entity Cliente{
+    Cliente[] listaClientes
+    String Nombre
+    int Edad
+    solicitarCuenta
+    generarOrden()
+    get's
+    set's
+}
+class ListaClientes{
+    ListaCliente[] listaClientes
+    int cantidadActual
+
+    get's
+    set's
+
+
+
+}
+class OrdenCliente{
+    identificarTrabajador()
+    ConsultarCliente()
+    GenerarResumen()
+    Detalle()
+
+
+
+
+}
+
+class DetallePedido{
+    mostrarProductos()
+    mostrarTotalPedido()
+    mostrarTrabajadorPedido()
+    mostrarNumeroMesa()
+
+
+}
+
+'recordatorio PRODUCTO=INVENTARIO
+
+class Producto{
+    Producto[] ListaProducto
+    String Producto
+    int Precio
+    String Categoria
+    int Stock
+    get's
+    set's
+}
+
+class ListaProducto{
+    ListaProducto[] ListaProducto
+    int cantidadActual
+    ingresarProducto()
+    actualizarProducto()
+    eliminarProducto()
+    get's
+    set's
+
+
+}
+
+   Restorant "1"-- "*" ListaMesas : tiene >
+   ListaMesas "1"-- "*" Mesas : tiene >
+   Restorant "1"-- "*" ListaTrabajadores : tiene >
+   ListaTrabajadores "1"-- "*" Trabajadores : tiene >
+   Restorant "1"-- "*" ListaProducto : tiene >
+   ListaProducto "1"-- "*" Producto : tiene >
+   Mesas "1"-- "*" ListaClientes : Posee >
+   ListaClientes "1"-- "*" Cliente : tiene >
+   Trabajadores "1"-- "*" Cliente : atiende >
+   Cliente "1"-- "*" OrdenCliente : ordena >
+   OrdenCliente "1"-- "*" DetallePedido : genera >
+
+@enduml
